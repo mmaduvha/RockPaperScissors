@@ -7,6 +7,7 @@ using namespace std;
 
 class RockPaperScissorsGame {
 public:
+	// Check if the user's input character is a valid choice (R, P, or S)
 	bool CheckPlayerChoiceIsPermitted(char playerChoice)
 	{
 		if (playerChoice != 'R' && playerChoice != 'P' && playerChoice != 'S' &&
@@ -26,11 +27,14 @@ int main()
 	cout << "Welcome to Rock, Paper, Scissors!" << endl;
 	cout << "Players can be up to 4." << endl;
 
+	// Outer loop handles starting a new game session
 	while (true)
 	{
+		// Ask the user how many players will be playing
 		cout << "Please enter the number of the players: ";
 		cin >> numPlayers;
 
+		// Validate number of players
 		if (numPlayers > 4 || numPlayers < 1)
 		{
 			cout << "Invalid number of players. Players can only be up to 4. Try Again" << endl;
@@ -42,9 +46,12 @@ int main()
 		cout << "[S] for Scissors" << endl;
 
 		char playAgain = 'Y';
+
+		// Main loop for consecutive rounds with current number of players
 		while (playAgain == 'Y' || playAgain == 'y') {
 			vector<char> choices(numPlayers);
 
+			// Collect input for each player
 			for (int i = 0; i < numPlayers; i++) {
 				cout << "Player " << i + 1 << ", please enter your choice (R/P/S): ";
 				char playerChoice;
@@ -52,6 +59,7 @@ int main()
 
 				playerChoice = toupper(playerChoice);
 
+				// Store player choice if valid, otherwise prompt again
 				if (game.CheckPlayerChoiceIsPermitted(playerChoice))
 				{
 					choices[i] = playerChoice;
@@ -64,6 +72,7 @@ int main()
 				}
 			}
 
+			// Flags to track which choices were present in this round
 			bool hasRock = false;
 			bool hasPaper = false;
 			bool hasScissors = false;
@@ -74,6 +83,7 @@ int main()
 				else if (c == 'S') hasScissors = true;
 			}
 
+			// Determine round outcome based on combinations present
 			if (hasRock && hasPaper && hasScissors) {
 				cout << "It's a tie! All choices were played." << endl;
 			}
@@ -105,10 +115,12 @@ int main()
 				cout << "It's a tie! All players chose the same." << endl;
 			}
 
+			// Ask to replay round
 			cout << "Would you like to play another round? (Y/N): ";
 			cin >> playAgain;
 		}
 
+		// Re-entry or exit point
 		cout << "Would you like to change the number of players and play again? (Y/N): ";
 		char restartChoice;
 		cin >> restartChoice;
